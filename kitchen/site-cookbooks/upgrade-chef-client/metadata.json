@@ -11,7 +11,7 @@
      ]
    },
   "recipes": {
-    "upgrade-chef-client": "Adds chef key and installs Chef via apt."
+    "default": "Adds chef key and installs Chef via apt."
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }

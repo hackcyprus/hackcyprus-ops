@@ -1,0 +1,17 @@
+{
+  "name": "genghis-mongo",
+  "description": "Installs Genghis, a mongodb control panel.",
+  "long_description": "Installs Genghis, a mongodb control panel.",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+     "ruby": [
+     ]
+   },
+  "recipes": {
+    "default": "Installs Genghis."
+  },
+  "version": "0.0.2"
+}

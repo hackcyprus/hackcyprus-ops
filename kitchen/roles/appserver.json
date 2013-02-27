@@ -9,6 +9,7 @@
             "role[mongodb-single]",
             "recipe[ruby]",
             "recipe[nodejs]",
+            "recipe[genghis-mongodb]",
             "recipe[hackcyprus::hacknest]"
         ],
         "production": [

@@ -1,0 +1,15 @@
+{
+  "name": "hackcyprus",
+  "description": "Hackcyprus cookbook.",
+  "long_description": "",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "recipes": {
+    "default": "Empty.",
+    "hacknest": "Hacknest configuration."
+  },
+  "version": "0.0.1"
+}
