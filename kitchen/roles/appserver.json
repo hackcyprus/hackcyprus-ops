@@ -7,7 +7,9 @@
         "development": [
             "role[essential]",
             "role[mongodb-single]",
-            "recipe[nodejs]"
+            "recipe[ruby]",
+            "recipe[nodejs]",
+            "recipe[hackcyprus::hacknest]"
         ],
         "production": [
             "role[essential]",
