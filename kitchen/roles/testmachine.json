@@ -5,7 +5,7 @@
         "role[essential]",
         "recipe[nodejs]"
     ],
-    "name": "test-machine",
+    "name": "testmachine",
     "description": "Configures a test machine.",
     "chef_type": "role",
     "default_attributes": {

@@ -1,0 +1,17 @@
+{
+  "name": "force-apt-get-update",
+  "description": "Forces an apt-get update command.",
+  "long_description": "Apt updates every 24 hours but not during the initial run.",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+     "apt": [
+     ]
+   },
+  "recipes": {
+    "force-apt-get-update": "Forces apt to update."
+  },
+  "version": "0.0.1"
+}

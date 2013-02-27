@@ -1,0 +1,17 @@
+{
+  "name": "upgrade-chef-client",
+  "description": "Downloads the latest version of chef client.",
+  "long_description": "Downloads the latest version of chef client.",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0"
+  },
+  "dependencies": {
+     "apt": [
+     ]
+   },
+  "recipes": {
+    "upgrade-chef-client": "Adds chef key and installs Chef via apt."
+  },
+  "version": "0.0.1"
+}
