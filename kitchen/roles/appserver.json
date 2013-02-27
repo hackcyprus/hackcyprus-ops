@@ -1,0 +1,31 @@
+{
+    "json_class": "Chef::Role",
+    "env_run_lists": {
+        "_default": [
+
+        ],
+        "development": [
+            "role[essential]",
+            "role[mongodb-single]",
+            "recipe[nodejs]"
+        ],
+        "production": [
+            "role[essential]",
+            "recipe[nodejs]"
+        ]
+    },
+    "run_list": [],
+    "name": "appserver",
+    "description": "Configures a nodejs app server.",
+    "chef_type": "role",
+    "default_attributes": {
+        "build_essential": {
+            "compiletime": true
+        }
+    },
+    "override_attributes": {
+        "nodejs": {
+            "install_method": "package"
+        }
+    }
+}

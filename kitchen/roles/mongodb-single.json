@@ -1,0 +1,19 @@
+{
+    "name": "mongodb-single",
+    "default_attributes": {
+        "mongodb": {
+            "port": 27017,
+            "enable_rest": true,
+            "install_method": "10gen"
+        }
+    },
+    "json_class": "Chef::Role",
+    "env_run_lists": {},
+    "run_list": [
+        "role[essential]",
+        "recipe[mongodb::default]"
+    ],
+    "description": "Creates a single server mongodb installation.",
+    "chef_type": "role",
+    "override_attributes": {}
+}

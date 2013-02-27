@@ -10,7 +10,7 @@ roles_paths = ['../kitchen/roles']
 # Chef Server configuration
 #
 chef_server_url = 'https://api.opscode.com/organizations/hackcyprus'
-validation_key = '../kitchen/.chef/hackcyprus-validator.pem'
+validation_key = '~/.chef/hackcyprus-validator.pem'
 
 # Shortcut for creating user-specific vm names
 #
@@ -25,24 +25,24 @@ Vagrant::Config.run do |config|
     config.vm.box = 'ubuntu12.04precise64'
     config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
-    config.vm.define :testmachine do |node|
+    config.vm.define :appserver do |node|
 
         node.vm.provision :chef_client do |chef|
             chef.chef_server_url = chef_server_url
             chef.validation_key_path = validation_key
             chef.validation_client_name = 'hackcyprus-validator'
-            chef.add_recipe('upgrade-chef-client')
-            #chef.add_role('testmachine')
+            chef.environment = "development"
+            chef.add_role('appserver')
         end
 
         node.vm.customize [
             'modifyvm', :id,
-            '--name', 'testmachine',
+            '--name', 'appserver',
             '--memory', 128,
             '--cpus', 1
         ]
 
-        node.vm.host_name = vagrant_vm_name 'testmachine'
+        node.vm.host_name = vagrant_vm_name 'appserver'
         node.vm.network :hostonly, '172.16.25.10'
         #node.vm.share_folder "source", "/opt/crawling", "../../crawling"
     end
