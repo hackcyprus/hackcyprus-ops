@@ -1,0 +1,46 @@
+# ==== Vagrantfile ==== #
+# Author: Alex Michael
+#
+
+# Chef Solo configuration
+#
+cookbooks_paths = ["../kitchen/cookbooks", "../kitchen/site-cookbooks"]
+roles_paths = ["../kitchen/roles"]
+
+# Chef Server configuration
+#
+chef_server_url = 'https://api.opscode.com/organizations/hackcyprus'
+
+# Shortcut for creating user-specific vm names
+#
+def vagrant_vm_name(name):
+    return "vagrant-#{name}-#{ENV['USER']}"
+end
+
+# Virtual machines
+#
+Vagrant::Config.run do |config|
+
+    config.vm.box = "ubuntu12.04precise64"
+    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+    config.vm.define :testmachine do |node|
+
+        # node.vm.provision :chef_server do |chef|
+        #     chef.chef_server_url = chef_server_url
+        #     chef.add_role("test-machine")
+        # end
+
+        node.vm.customize [
+            "modifyvm", :id,
+            "--name", "testmachine",
+            "--memory", 128,
+            "--cpus", 1
+        ]
+
+        node.vm.host_name = vagrant_vm_name 'testmachine'
+        node.vm.network :hostonly, "172.16.25.10"
+        #node.vm.share_folder "source", "/opt/crawling", "../../crawling"
+    end
+
+end

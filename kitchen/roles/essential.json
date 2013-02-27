@@ -1,0 +1,14 @@
+{
+  "name": "essential",
+  "json_class": "Chef::Role",
+  "env_run_lists": {},
+  "run_list": [
+    "recipe[build-essential]",
+    "recipe[apt]",
+    "recipe[git]"
+  ],
+  "description": "Essential installs.",
+  "chef_type": "role",
+  "default_attributes": {},
+  "override_attributes": {}
+}

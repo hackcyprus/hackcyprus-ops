@@ -1,0 +1,21 @@
+{
+    "json_class": "Chef::Role",
+    "env_run_lists": {},
+    "run_list": [
+        "role[essential]",
+        "recipe[nodejs]"
+    ],
+    "name": "test-machine",
+    "description": "Configures a test machine.",
+    "chef_type": "role",
+    "default_attributes": {
+        "build_essential": {
+            "compiletime": true
+        }
+    },
+    "override_attributes": {
+        "nodejs": {
+            "install_method": "package"
+        }
+    }
+}
