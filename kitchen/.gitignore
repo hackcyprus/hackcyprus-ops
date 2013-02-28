@@ -2,3 +2,4 @@
 .chef
 .DS_Store
 .vagrant
+data_bags/
