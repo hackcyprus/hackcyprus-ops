@@ -18,6 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+puts node[:appserver][:user]
 
 ['zip', 'daemon', 'curl', 'htop'].each do |pkg|
   package pkg do
@@ -25,17 +26,30 @@
   end
 end
 
-execute 'enhance .bashrc' do
+execute 'enhance .bashrc for development' do
   command <<-EOS
     echo 'export APPSERVER_ENV=#{node[:appserver][:environment]}' >> .bashrc
     echo 'cd #{node[:appserver][:home]}' >> .bashrc
   EOS
-  cwd '/home/#{node[:appserver][:user]}'
+  cwd '~'
   only_if { node[:appserver][:environment] == 'development' }
 end
 
+execute 'install nodemon for development' do
+    command 'npm install nodemon -g'
+    only_if { node[:appserver][:environment] == 'development' }
+end
+
+template '/etc/supervisor/conf.d/#{node[:appserver][:name]}.conf' do
+  source 'appserver.supervisord.erb'
+  owner node[:appserver][:user]
+  group 'nogroup'
+  mode 0644
+  notifies :restart, 'service[supervisor]'
+end
+
 template "#{node[:nginx][:dir]}/sites-available/#{node[:appserver][:name]}" do
-  source 'nginx.appserver.erb'
+  source 'appserver.nginx.erb'
   owner 'www-data'
   group 'nogroup'
   mode 0644

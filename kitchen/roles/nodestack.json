@@ -1,0 +1,17 @@
+{
+  "name": "nodestack",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+      "role[essential]",
+      "recipe[force-apt-get-update]",
+      "recipe[nginx]",
+      "recipe[supervisord]",
+      "recipe[nodejs]"
+  ],
+  "description": "Essential for a node stack.",
+  "chef_type": "role"
+}

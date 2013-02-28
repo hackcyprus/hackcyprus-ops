@@ -5,18 +5,14 @@
 
         ],
         "development": [
-            "role[essential]",
+            "role[nodestack]",
             "role[mongodb-single]",
-            "recipe[nginx]",
             "recipe[ruby]",
-            "recipe[nodejs]",
             "recipe[genghis-mongodb]",
             "recipe[hackcyprus::appserver]"
         ],
         "production": [
-            "role[essential]",
-            "recipe[nginx]",
-            "recipe[nodejs]",
+            "role[nodestack]",
             "recipe[hackcyprus::appserver]"
         ]
     },
