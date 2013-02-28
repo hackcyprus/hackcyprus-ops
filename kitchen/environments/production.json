@@ -7,7 +7,8 @@
   "chef_type": "environment",
   "override_attributes": {
     "appserver": {
-        "environment": "production"
+        "environment": "production",
+        "user": "appserver"
     }
   }
 }
