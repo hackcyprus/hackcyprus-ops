@@ -26,18 +26,15 @@ puts node[:appserver][:user]
   end
 end
 
-execute 'enhance .bashrc for development' do
-  command <<-EOS
-    echo 'export APPSERVER_ENV=#{node[:appserver][:environment]}' >> .bashrc
-    echo 'cd #{node[:appserver][:home]}' >> .bashrc
-  EOS
-  cwd '~'
-  only_if { node[:appserver][:environment] == 'development' }
-end
+user node[:appserver][:user] do
+  gid "nogroup"
+  home "/home/#{node[:appserver][:user]}"
+  action :nothing
+end.run_action(:create)
 
 execute 'install nodemon for development' do
-    command 'npm install nodemon -g'
-    only_if { node[:appserver][:environment] == 'development' }
+  command 'npm install nodemon -g'
+  only_if { node[:appserver][:environment] == 'development' }
 end
 
 template '/etc/supervisor/conf.d/#{node[:appserver][:name]}.conf' do
