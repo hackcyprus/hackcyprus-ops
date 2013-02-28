@@ -41,7 +41,7 @@ template "#{node[:nginx][:dir]}/sites-available/#{node[:appserver][:name]}" do
   mode 0644
 end
 
-nginx_site node[:webapp][:name] do
+nginx_site node[:appserver][:name] do
   enable true
 end
 

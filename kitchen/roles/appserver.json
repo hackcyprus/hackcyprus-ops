@@ -7,6 +7,7 @@
         "development": [
             "role[essential]",
             "role[mongodb-single]",
+            "recipe[nginx]",
             "recipe[ruby]",
             "recipe[nodejs]",
             "recipe[genghis-mongodb]",
@@ -14,6 +15,7 @@
         ],
         "production": [
             "role[essential]",
+            "recipe[nginx]",
             "recipe[nodejs]",
             "recipe[hackcyprus::appserver]"
         ]
