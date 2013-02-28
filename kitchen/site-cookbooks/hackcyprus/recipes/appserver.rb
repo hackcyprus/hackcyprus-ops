@@ -18,7 +18,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-puts node[:appserver][:user]
+
+# Some strings..
+#
+export_environment = "export APPSERVER_ENV=#{node[:appserver][:environment]}"
+cd_source_dir = "cd #{node[:appserver][:home]}"
+export_app_secrets = "source /home/#{node[:appserver][:user]}/.appsecrets"
+
+# Create the secrets variable hash
+#
+data_bags = ['hacknest', 'services']
+secrets = {}
+data_bags.each do |bag|
+  data_bag(bag).each do |item|
+    secrets[item] = data_bag_item(bag, item)
+  end
+end
 
 ['zip', 'daemon', 'curl', 'htop'].each do |pkg|
   package pkg do
@@ -32,12 +47,34 @@ user node[:appserver][:user] do
   action :nothing
 end.run_action(:create)
 
+ruby_block "enhance .profile" do
+  block do
+    file = Chef::Util::FileEdit.new("/home/#{node[:appserver][:user]}/.profile")
+    [
+      export_environment,
+      cd_source_dir,
+      export_app_secrets
+    ].each do |line|
+      file.insert_line_if_no_match(line, line)
+      file.write_file
+    end
+  end
+end
+
+template "/home/#{node[:appserver][:user]}/.appsecrets" do
+  source 'appserver.secrets'
+  mode 0700
+  owner node[:appserver][:user]
+  group "nogroup"
+  variables(secrets)
+end
+
 execute 'install nodemon for development' do
   command 'npm install nodemon -g'
   only_if { node[:appserver][:environment] == 'development' }
 end
 
-template '/etc/supervisor/conf.d/#{node[:appserver][:name]}.conf' do
+template "/etc/supervisor/conf.d/#{node[:appserver][:name]}.conf" do
   source 'appserver.supervisord.erb'
   owner node[:appserver][:user]
   group 'nogroup'
