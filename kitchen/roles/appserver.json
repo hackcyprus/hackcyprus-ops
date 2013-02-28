@@ -10,12 +10,12 @@
             "recipe[ruby]",
             "recipe[nodejs]",
             "recipe[genghis-mongodb]",
-            "recipe[hackcyprus::hacknest]"
+            "recipe[hackcyprus::appserver]"
         ],
         "production": [
             "role[essential]",
             "recipe[nodejs]",
-            "recipe[hackcyprus::hacknest]"
+            "recipe[hackcyprus::appserver]"
         ]
     },
     "run_list": [],

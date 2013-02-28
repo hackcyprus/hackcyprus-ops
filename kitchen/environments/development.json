@@ -9,8 +9,9 @@
     "ruby": {
       "default_version": "1.8"
     },
-    "hacknest": {
-      "environment": "development"
+    "appserver": {
+      "environment": "development",
+      "user": "vagrant"
     }
   }
 }

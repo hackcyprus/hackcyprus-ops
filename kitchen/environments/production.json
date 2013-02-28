@@ -6,7 +6,7 @@
   "cookbook_versions": {},
   "chef_type": "environment",
   "override_attributes": {
-    "hacknest": {
+    "appserver": {
         "environment": "production"
     }
   }

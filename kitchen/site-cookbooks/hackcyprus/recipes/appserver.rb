@@ -2,7 +2,7 @@
 #
 # Author:: Alex Michael
 # Cookbook Name:: hackcyprus
-# Recipe:: hacknest
+# Recipe:: appserver
 #
 # Copyright 2012, Hack Cyprus
 #
@@ -23,4 +23,28 @@
   package pkg do
     action :install
   end
+end
+
+execute 'enhance .bashrc' do
+  command <<-EOS
+    echo 'export APPSERVER_ENV=#{node[:appserver][:environment]}' >> .bashrc
+    echo 'cd #{node[:appserver][:home]}' >> .bashrc
+  EOS
+  cwd '/home/#{node[:appserver][:user]}'
+  only_if { node[:appserver][:environment] == 'development' }
+end
+
+template "#{node[:nginx][:dir]}/sites-available/#{node[:appserver][:name]}" do
+  source 'nginx.appserver.erb'
+  owner 'www-data'
+  group 'nogroup'
+  mode 0644
+end
+
+nginx_site node[:webapp][:name] do
+  enable true
+end
+
+nginx_site 'default' do
+  enable false
 end
