@@ -14,7 +14,8 @@
         ],
         "production": [
             "role[essential]",
-            "recipe[nodejs]"
+            "recipe[nodejs]",
+            "recipe[hackcyprus::hacknest]"
         ]
     },
     "run_list": [],

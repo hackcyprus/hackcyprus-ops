@@ -45,7 +45,7 @@ Vagrant::Config.run do |config|
         node.vm.host_name = vagrant_vm_name 'appserver'
         node.vm.network :hostonly, '172.16.25.10'
         node.vm.forward_port 5678, 5678
-        #node.vm.share_folder "source", "/opt/crawling", "../../crawling"
+        node.vm.share_folder "source", "/opt/hacknest", "../../hacknest"
     end
 
 end

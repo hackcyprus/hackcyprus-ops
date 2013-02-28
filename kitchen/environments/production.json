@@ -4,5 +4,10 @@
   "json_class": "Chef::Environment",
   "description": "Production environment.",
   "cookbook_versions": {},
-  "chef_type": "environment"
+  "chef_type": "environment",
+  "override_attributes": {
+    "hacknest": {
+        "environment": "production"
+    }
+  }
 }
