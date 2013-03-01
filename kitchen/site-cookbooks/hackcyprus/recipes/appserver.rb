@@ -83,8 +83,8 @@ execute 'install nodemon globally for development' do
   only_if { node[:appserver][:environment] == 'development' }
 end
 
-execute 'install grunt globally' do
-  command 'npm install grunt -g'
+execute 'install grunt-cli globally' do
+  command 'npm install grunt-cli -g'
 end
 
 execute 'install npm dependencies locally' do
