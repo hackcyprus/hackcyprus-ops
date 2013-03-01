@@ -74,6 +74,16 @@ execute 'install nodemon for development' do
   only_if { node[:appserver][:environment] == 'development' }
 end
 
+execute 'install npm dependencies' do
+  command 'npm install'
+  cwd "#{node[:appserver][:home]}"
+end
+
+python_pip "-r #{node[:appserver][:home]}/requirements.pip" do
+  action :install
+  only_if { File.exists?("#{node[:appserver][:home]}/requirements.pip") }
+end
+
 template "/etc/supervisor/conf.d/#{node[:appserver][:name]}.conf" do
   source 'appserver.supervisord.erb'
   owner node[:appserver][:user]
