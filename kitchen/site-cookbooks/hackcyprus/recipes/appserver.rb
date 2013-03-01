@@ -47,6 +47,15 @@ user node[:appserver][:user] do
   action :nothing
 end.run_action(:create)
 
+# Alex M:
+# Not really sure about the security implications of these but it'll do
+# for now. I'll come back to it later.
+#
+execute 'chown project root' do
+  command "chown #{node[:appserver][:user]}:nogroup /opt"
+  action :nothing
+end.run_action(:run)
+
 ruby_block "enhance .profile" do
   block do
     file = Chef::Util::FileEdit.new("/home/#{node[:appserver][:user]}/.profile")
@@ -69,13 +78,18 @@ template "/home/#{node[:appserver][:user]}/.appsecrets" do
   variables(secrets)
 end
 
-execute 'install nodemon for development' do
+execute 'install nodemon globally for development' do
   command 'npm install nodemon -g'
   only_if { node[:appserver][:environment] == 'development' }
 end
 
-execute 'install npm dependencies' do
+execute 'install grunt globally' do
+  command 'npm install grunt -g'
+end
+
+execute 'install npm dependencies locally' do
   command 'npm install'
+  user node[:appserver][:user]
   cwd "#{node[:appserver][:home]}"
 end
 
