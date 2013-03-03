@@ -89,7 +89,6 @@ end
 
 execute 'install npm dependencies locally' do
   command 'npm install'
-  user node[:appserver][:user]
   cwd "#{node[:appserver][:home]}"
 end
 

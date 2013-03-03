@@ -38,7 +38,7 @@ Vagrant::Config.run do |config|
         node.vm.customize [
             'modifyvm', :id,
             '--name', 'appserver',
-            '--memory', 128,
+            '--memory', 256,
             '--cpus', 1
         ]
 
