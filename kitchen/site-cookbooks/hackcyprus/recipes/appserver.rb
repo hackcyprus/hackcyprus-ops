@@ -56,6 +56,12 @@ execute 'chown project root' do
   action :nothing
 end.run_action(:run)
 
+execute 'add read permissions for project root in development' do
+  command 'sudo chmod a+r --recursive /opt/appserver'
+  action :nothing
+  only_if { node[:appserver][:environment] == 'development' }
+end.run_action(:run)
+
 ruby_block "enhance .profile" do
   block do
     file = Chef::Util::FileEdit.new("/home/#{node[:appserver][:user]}/.profile")
